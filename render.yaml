@@ -1,0 +1,14 @@
+# Deploy SERVER realtime lên Render: New > Blueprint > chọn repo. (Web Next.js vẫn deploy trên Vercel.)
+services:
+  - type: web
+    name: kho-game-server
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm run start:server
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: CLIENT_ORIGIN        # điền địa chỉ web trên Vercel, ví dụ https://kho-game.vercel.app
+        sync: false

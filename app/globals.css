@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-navy-900 font-sans text-paper antialiased;
+  background-image: radial-gradient(60rem 30rem at 12% -5%, rgba(139,108,255,.22), transparent 60%), radial-gradient(50rem 28rem at 96% 8%, rgba(255,107,107,.16), transparent 60%);
+  background-attachment: fixed;
+}
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold; }
+  .btn-gold { @apply btn bg-gold text-navy-900 hover:brightness-110; }
+  .btn-ghost { @apply btn border border-gold/40 text-paper hover:bg-gold/10; }
+  .btn-red { @apply btn bg-cinnabar text-white hover:brightness-110; }
+  .card { @apply rounded-2xl border border-gold/25 bg-navy-800/80 p-5 shadow-xl backdrop-blur sm:p-6; }
+  .input { @apply w-full rounded-lg border border-gold/30 bg-navy-900 px-4 py-3 text-paper placeholder:text-paper/40 focus:border-gold focus:outline-none; }
+}
+/* quân cờ trượt từ ô cũ sang ô mới */
+@keyframes slide { from { transform: translate(var(--dx), var(--dy)); } to { transform: translate(0, 0); } }
+.slide { animation: slide 0.22s ease-out; }
+/* quân đang được chọn nhấc lên */
+.lift { transform-box: fill-box; transform-origin: center; transform: scale(1.12); filter: drop-shadow(0 4px 4px rgba(0,0,0,.45)); }
+/* gợn sóng khi ăn quân */
+@keyframes ripple { from { transform: scale(0.7); opacity: 0.95; } to { transform: scale(2); opacity: 0; } }
+.ripple { transform-box: fill-box; transform-origin: center; animation: ripple 0.55s ease-out forwards; pointer-events: none; }
+/* tướng bị chiếu nhấp nháy */
+@keyframes pulse-ring { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+.check-ring { animation: pulse-ring 0.9s ease-in-out infinite; }
+@keyframes pop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.pop { animation: pop 0.3s cubic-bezier(0.2, 1.4, 0.4, 1); }
+.hit { fill: transparent; }
+.hit.can:hover { fill: rgba(212, 166, 74, 0.28); cursor: pointer; }
+.piece { font-family: 'Noto Serif TC', KaiTi, SimSun, serif; font-weight: 900; font-size: 26px; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .slide, .ripple, .check-ring, .pop { animation: none; } }
+/* quân cờ vua (ký tự Unicode) */
+.cpiece { font-family: 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'DejaVu Sans', 'Apple Symbols', serif; font-size: 46px; text-anchor: middle; dominant-baseline: central; pointer-events: none; paint-order: stroke; stroke-width: 1.8px; stroke-linejoin: round; }
+.cpiece.w { fill: #fff; stroke: #1c1c1c; }
+.cpiece.b { fill: #171717; stroke: #c9c9c9; }
+
+/* trang chủ: quân cờ trôi nhẹ */
+@keyframes floaty { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-14px) rotate(calc(var(--r, 0deg) + 4deg)); } }
+.floaty { animation: floaty 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .floaty { animation: none; } }
